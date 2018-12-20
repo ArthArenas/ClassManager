@@ -23,4 +23,4 @@ The server side is supported by [Heroku](www.heroku.com). I'm planning to implem
 The DBMS will probably be [PostgreSQL](www.postgresql.org) since it's the one that I know that has an add-on for Python in Heroku.
 
 ## Project Management
-The methodology that I'll be using for the development of this project is Scrum. Sprints and User Stories will be found [here](https://artharenas.visualstudio.com/ClassManager) as soon as the choice of technologies is clear (by October 1st).
+The methodology that I'll be using for the development of this project is Scrum. Sprints and User Stories will be found [here](https://artharenas.visualstudio.com/ClassManager) as soon as the choice of technologies is clear (by December 23rd).
