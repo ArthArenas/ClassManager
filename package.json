@@ -1,0 +1,29 @@
+{
+  "name": "classmanager",
+  "version": "1.0.0",
+  "description": "A web application that offers elementary school teachers an easy maintenance of their students' records",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArthArenas/ClassManager.git"
+  },
+  "author": "Arturo Arenas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ArthArenas/ClassManager/issues"
+  },
+  "homepage": "https://github.com/ArthArenas/ClassManager#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.19"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
