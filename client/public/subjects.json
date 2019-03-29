@@ -1,0 +1,36 @@
+{
+    "data": [
+        {
+            "_id": 1,
+            "title": "Matemáticas"
+        },
+        {
+            "_id": 2,
+            "title": "Español"
+        },
+        {
+            "_id": 3,
+            "title": "Ciencias Naturales"
+        },
+        {
+            "_id": 4,
+            "title": "Formación Cívica y Ética"
+        },
+        {
+            "_id": 5,
+            "title": "Geografía"
+        },
+        {
+            "_id": 6,
+            "title": "Historia"
+        },
+        {
+            "_id": 7,
+            "title": "Educación Física"
+        },
+        {
+            "_id": 8,
+            "title": "Educación Artística"
+        }
+    ]
+}
