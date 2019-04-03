@@ -1,0 +1,10 @@
+{
+    "data": {
+        "finalExamUnits": 24,
+        "homeworkUnits": 30,
+        "classworkUnits": 20,
+        "attendance": 5,
+        "behavior": 5,
+        "extra": 5
+    }
+}

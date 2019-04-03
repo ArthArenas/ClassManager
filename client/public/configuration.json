@@ -1,0 +1,10 @@
+{
+    "data": {
+        "finalExamWeight": 0.5,
+        "homeworkWeight": 0.2,
+        "classworkWeight": 0.2,
+        "attendanceWeight": 0.05,
+        "behaviorWeight": 0.05,
+        "extraWeight": 0.05
+    }
+}

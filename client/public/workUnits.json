@@ -1,0 +1,103 @@
+{
+    "data": [
+        {
+            "_id": 1,
+            "givenNames": "Sherry",
+            "surname": "Harris Holmes",
+            "finalExamUnits": 9,
+            "homeworkUnits": 29,
+            "classworkUnits": 15,
+            "attendance": 3,
+            "behavior": 3,
+            "extra":  5
+        },
+        {
+            "_id": 2,
+            "givenNames": "Richard",
+            "surname": "Badgett Knapp",
+            "finalExamUnits": 15,
+            "homeworkUnits": 18,
+            "classworkUnits": 11,
+            "attendance": 4,
+            "behavior": 5,
+            "extra":  0
+        },
+        {
+            "_id": 3,
+            "givenNames": "Daniel",
+            "surname": "Perron Potts",
+            "finalExamUnits": 19,
+            "homeworkUnits": 25,
+            "classworkUnits": 15,
+            "attendance": 3,
+            "behavior": 2,
+            "extra":  2
+        },
+        {
+            "_id": 4,
+            "givenNames": "April",
+            "surname": "McDuffy Burchett",
+            "finalExamUnits": 24,
+            "homeworkUnits": 30,
+            "classworkUnits": 20,
+            "attendance": 0,
+            "behavior": 0,
+            "extra": 0
+        },
+        {
+            "_id": 5,
+            "givenNames": "Frank",
+            "surname": "Sullivan Casteel",
+            "finalExamUnits": 23,
+            "homeworkUnits": 15,
+            "classworkUnits": 10,
+            "attendance": 4,
+            "behavior": 4,
+            "extra":  0
+        },
+        {
+            "_id": 6,
+            "givenNames": "Philip",
+            "surname": "Allen Barnett",
+            "finalExamUnits": 21,
+            "homeworkUnits": 16,
+            "classworkUnits": 8,
+            "attendance": 1,
+            "behavior": 0,
+            "extra":  2
+        },
+        {
+            "_id": 7,
+            "givenNames": "Krista",
+            "surname": "Butler Lloyd",
+            "finalExamUnits": 8,
+            "homeworkUnits": 28,
+            "classworkUnits": 11,
+            "attendance": 4,
+            "behavior": 4,
+            "extra":  5
+        },
+        {
+            "_id": 8,
+            "givenNames": "Linda",
+            "surname": "Gonzalez Paredes",
+            "finalExamUnits": 13,
+            "homeworkUnits": 11,
+            "classworkUnits": 12,
+            "attendance": 3,
+            "behavior": 4,
+            "extra":  5
+        },
+        {
+            "_id": 9,
+            "givenNames": "Cynthia Teresa de Jesus",
+            "surname": "Berrueto Quintana",
+            "finalExamUnits": 14,
+            "homeworkUnits": 12,
+            "classworkUnits": 13,
+            "attendance": 2,
+            "behavior": 3,
+            "extra":  5
+        }
+    ]
+}
