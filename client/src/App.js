@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTimes, faExclamation } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -8,6 +11,11 @@ import Configuration from './components/Configuration';
 import Elements from './components/Elements';
 import Grading from './components/Grading';
 import Overall from './components/Overall';
+import ExamGrading from './components/ExamGrading';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+library.add(faCheck, faTimes, faExclamation);
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faTimes, faExclamation } from '@fortawesome/free-solid-svg-icons';
@@ -33,6 +41,9 @@ class App extends Component {
         )}/>
         <Route path="/overall" render={() => (
           <Overall />
+        )}/>
+        <Route path="/examGrading" render={() => (
+          <ExamGrading />
         )}/>
       </Switch>
     );
