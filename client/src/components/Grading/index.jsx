@@ -2,34 +2,37 @@ import React from 'react';
 import { Button, ButtonGroup, Table, InputGroup, Input } from 'reactstrap';
 import uuid from 'uuid';
 
-import { calculateGradeAsPercent, calculateGradeContribution } from '../../model/math.js';
-import { calculateGPA, identity, createUncontrolledCell } from '../../model/cm_util.js';
+import { calculateGradeAsPercent, calculateGradeContribution } from '../../local_framework/math.js';
+import { calculateGPA, identity, createUncontrolledCell } from '../../local_framework/cm_util.js';
+
+import Course from '../../models/Course.js';
+import CourseStudent from '../../models/CourseStudent.js';
 
 class TermGradingTable extends React.Component {
 
     createRow = (work, idx, f) => {
 
         var data = {
-            finalExam: f(work.finalExamUnits, this.props.workloadJSON.finalExamUnits, this.props.configurationJSON.finalExamWeight),
-            homework: f(work.homeworkUnits, this.props.workloadJSON.homeworkUnits, this.props.configurationJSON.homeworkWeight),
-            classwork: f(work.classworkUnits, this.props.workloadJSON.classworkUnits, this.props.configurationJSON.classworkWeight),
-            attendance: f(work.attendance, this.props.workloadJSON.attendance, this.props.configurationJSON.attendanceWeight),
-            behavior: f(work.behavior, this.props.workloadJSON.behavior, this.props.configurationJSON.behaviorWeight),
-            extra: f(work.extra, this.props.workloadJSON.extra, this.props.configurationJSON.extraWeight)
+            finalExam: f(work.finalExamUnits, this.props.workload.finalExamUnits, this.props.configuration.finalExamWeight),
+            homework: f(work.homeworkUnits, this.props.workload.homeworkUnits, this.props.configuration.homeworkWeight),
+            classwork: f(work.classworkUnits, this.props.workload.classworkUnits, this.props.configuration.classworkWeight),
+            attendance: f(work.attendance, this.props.workload.attendance, this.props.configuration.attendanceWeight),
+            behavior: f(work.behavior, this.props.workload.behavior, this.props.configuration.behaviorWeight),
+            extra: f(work.extra, this.props.workload.extra, this.props.configuration.extraWeight)
         }
         var className = this.props.displayMode === 1 ? "field" : "";
 
         return (
             <tr key={uuid()}>
                 <th scope="row">{idx + 1}</th>
-                <td style={{ textAlign: "start" }}>{this.props.workUnitsJSON[idx].givenNames + ' ' + this.props.workUnitsJSON[idx].surname}</td>
+                <td style={{ textAlign: "start" }}>{this.props.workUnits[idx].givenNames + ' ' + this.props.workUnits[idx].surname}</td>
                 <td>{createUncontrolledCell(data.finalExam, (this.props.isEditing && !this.props.hasExam), this.props.displayMode, className)}</td>
                 <td>{createUncontrolledCell(data.homework, this.props.isEditing, this.props.displayMode, className)}</td>
                 <td>{createUncontrolledCell(data.classwork, this.props.isEditing, this.props.displayMode, className)}</td>
                 <td>{createUncontrolledCell(data.attendance, this.props.isEditing, this.props.displayMode, className)}</td>
                 <td>{createUncontrolledCell(data.behavior, this.props.isEditing, this.props.displayMode, className)}</td>
                 <td>{createUncontrolledCell(data.extra, this.props.isEditing, this.props.displayMode, className)}</td>
-                <td>{createUncontrolledCell(calculateGPA(work, this.props.workloadJSON, this.props.configurationJSON, this.props.configurationJSON.finalExamWeight), 
+                <td>{createUncontrolledCell(calculateGPA(work, this.props.workload, this.props.configuration, this.props.configuration.finalExamWeight), 
                     false, 1, className)}</td>
             </tr>
         );
@@ -42,17 +45,17 @@ class TermGradingTable extends React.Component {
         else if(this.props.displayMode === 1) f = identity;
         else f = calculateGradeAsPercent;
 
-        const studentsListPreCalc = this.props.workUnitsJSON.map((work, idx) => {
+        const studentsListPreCalc = this.props.workUnits.map((work, idx) => {
             return this.createRow(work, idx, f);
         });
 
         var data = {
-            finalExam: f(this.props.workloadJSON.finalExamUnits, this.props.workloadJSON.finalExamUnits, this.props.configurationJSON.finalExamWeight),
-            homework: f(this.props.workloadJSON.homeworkUnits, this.props.workloadJSON.homeworkUnits, this.props.configurationJSON.homeworkWeight),
-            classwork: f(this.props.workloadJSON.classworkUnits, this.props.workloadJSON.classworkUnits, this.props.configurationJSON.classworkWeight),
-            attendance: f(this.props.workloadJSON.attendance, this.props.workloadJSON.attendance, this.props.configurationJSON.attendanceWeight),
-            behavior: f(this.props.workloadJSON.behavior, this.props.workloadJSON.behavior, this.props.configurationJSON.behaviorWeight),
-            extra: f(this.props.workloadJSON.extra, this.props.workloadJSON.extra, this.props.configurationJSON.extraWeight)
+            finalExam: f(this.props.workload.finalExamUnits, this.props.workload.finalExamUnits, this.props.configuration.finalExamWeight),
+            homework: f(this.props.workload.homeworkUnits, this.props.workload.homeworkUnits, this.props.configuration.homeworkWeight),
+            classwork: f(this.props.workload.classworkUnits, this.props.workload.classworkUnits, this.props.configuration.classworkWeight),
+            attendance: f(this.props.workload.attendance, this.props.workload.attendance, this.props.configuration.attendanceWeight),
+            behavior: f(this.props.workload.behavior, this.props.workload.behavior, this.props.configuration.behaviorWeight),
+            extra: f(this.props.workload.extra, this.props.workload.extra, this.props.configuration.extraWeight)
         }
 
         var inputsForMaxUnits = {
@@ -122,8 +125,7 @@ class Grading extends React.Component {
         this.state =  {
             editMode: false,
             selectedTab: 1,
-            hasExam: false,
-            configurationJSON: {
+            configuration: {
                 finalExamWeight: 0.5,
                 homeworkWeight: 0.2,
                 classworkWeight: 0.2,
@@ -131,7 +133,7 @@ class Grading extends React.Component {
                 behaviorWeight: 0.05,
                 extraWeight: 0.05
             },
-            workloadJSON: {
+            workload: {
                 finalExamUnits: 1,
                 homeworkUnits: 1,
                 classworkUnits: 1,
@@ -139,7 +141,8 @@ class Grading extends React.Component {
                 behavior: 1,
                 extra: 1
             },
-            workUnitsJSON: []
+            course: new Course(null, null, null, false),
+            workUnits: []
         };
     }
 
@@ -165,9 +168,9 @@ class Grading extends React.Component {
     }
 
     componentDidMount(){
-        this.__DEBUG__fetchFromFile('./configuration.json', 'configurationJSON');
-        this.__DEBUG__fetchFromFile('./workload.json', 'workloadJSON');
-        this.__DEBUG__fetchFromFile('./workUnits.json', 'workUnitsJSON');
+        this.__DEBUG__fetchFromFile('./configuration.json', 'configuration');
+        this.__DEBUG__fetchFromFile('./workload.json', 'workload');
+        this.__DEBUG__fetchFromFile('./workUnits.json', 'workUnits');
     }
 
     handleTabChange = (tabIdx) => {
@@ -178,36 +181,36 @@ class Grading extends React.Component {
         }
     }
 
+    readInputs = (selector) => {
+        const list = document.querySelectorAll(selector);
+        const inputData = [];
+        for(const node of list){
+            inputData.push(node.value)
+        }
+        return inputData;
+    }
+
     handleSave = () => {
         if(!this.state.editMode) return;
 
-        const list = document.querySelectorAll("tr .field");
-        const inputData = [];
-        for(const node of list){
-            inputData.push(node.value);
-        }
-
-        const maxList = document.querySelectorAll("th .fieldMax");
-        const maxInputData = [];
-        for(const maxNode of maxList){
-            maxInputData.push(maxNode.value);
-        }
+        var inputData = this.readInputs("tr .field");
+        var maxInputData = this.readInputs("tr .fieldMax");
         
         var newWorkUnits = [];
         var newWorkload = {};
-        var columns = this.state.hasExam ? 5 : 6;
+        var columns = this.state.course.hasExam ? 5 : 6;
         var rows = inputData.length / columns;
-        var offset = this.state.hasExam ? 0 : 1;
+        var offset = this.state.course.hasExam ? 0 : 1;
     
         var finalExamUnits;
 
         for(var i = 0; i < rows; i++){
-            finalExamUnits = this.state.hasExam ? this.state.workUnitsJSON[i].finalExamUnits : parseInt(inputData[i * columns]);
+            finalExamUnits = this.state.course.hasExam ? this.state.workUnits[i].finalExamUnits : parseInt(inputData[i * columns]);
 
             newWorkUnits.push({
-                _id: this.state.workUnitsJSON[i]._id,
-                givenNames: this.state.workUnitsJSON[i].givenNames,
-                surname: this.state.workUnitsJSON[i].surname,
+                _id: this.state.workUnits[i]._id,
+                givenNames: this.state.workUnits[i].givenNames,
+                surname: this.state.workUnits[i].surname,
                 finalExamUnits: finalExamUnits,
                 homeworkUnits: parseInt(inputData[i * columns + offset + 0]),
                 classworkUnits: parseInt(inputData[i * columns + offset + 1]),
@@ -217,7 +220,7 @@ class Grading extends React.Component {
             });
         }
 
-        finalExamUnits = this.state.hasExam ? this.state.workUnitsJSON[i].finalExamUnits : parseInt(maxInputData[0]);
+        finalExamUnits = this.state.course.hasExam ? this.state.workUnits[i].finalExamUnits : parseInt(maxInputData[0]);
 
         newWorkload = {
             finalExamUnits: finalExamUnits,
@@ -232,8 +235,8 @@ class Grading extends React.Component {
         console.log(newWorkUnits);
 
         this.setState({
-            workUnitsJSON: newWorkUnits,
-            workloadJSON: newWorkload
+            workUnits: newWorkUnits,
+            workload: newWorkload
         });
     }
 
@@ -285,10 +288,10 @@ class Grading extends React.Component {
                     <TermGradingTable
                         isEditing={this.state.editMode}
                         displayMode={this.state.selectedTab}
-                        hasExam={this.state.hasExam}
-                        configurationJSON={this.state.configurationJSON}
-                        workloadJSON={this.state.workloadJSON}
-                        workUnitsJSON={this.state.workUnitsJSON}
+                        hasExam={this.state.course.hasExam}
+                        configuration={this.state.configuration}
+                        workload={this.state.course.workload}
+                        workUnits={this.state.workUnits}
                     />
                 </div>
                 <div style={{margin: "40px", textAlign: "right", verticalAlign: true}}>

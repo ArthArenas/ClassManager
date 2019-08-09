@@ -17,12 +17,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 library.add(faCheck, faTimes, faExclamation);
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faTimes, faExclamation } from '@fortawesome/free-solid-svg-icons';
-import { library } from '@fortawesome/fontawesome-svg-core'
-
-library.add(faCheck, faTimes, faExclamation);
-
 class App extends Component {
   render() {
     return (

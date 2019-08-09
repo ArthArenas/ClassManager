@@ -1,27 +1,67 @@
 import React from 'react';
 //import { Link as _Link } from 'react-router-dom';
 
-import { Button, InputGroup, InputGroupAddon, Input, ListGroup, ListGroupItem, Table } from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, ModalFooter, Button, InputGroup, InputGroupAddon, Input, ListGroup, ListGroupItem, Table } from 'reactstrap';
 import uuid from 'uuid';
+
+import Student from '../../models/Student.js';
+import Subject from '../../models/Subject.js';
+import Term from '../../models/Term.js';
+
+/*
+class NewElementModal extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          modal: false
+        };
+    
+        this.toggle = this.toggle.bind(this);
+    }
+    
+    toggle = () => {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
+    
+    render() {
+        return (
+            <div>
+                <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+            </div>
+        );
+    }
+}
+*/
 
 class StudentRoster extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            newStudentGivenNames: '',
-            newStudentSurname: '',
-            newStudentGender: 'Masculino'
-        }
     }
 
+    /*
     handleUpdateOfNewSubject = (studentProp, e) => {
         this.setState({
             [studentProp]: e.target.value
         })
     }
+    */
 
+    /*
     handleAdditionOfElement = (curState, event) => {
+        var newStudent = new Student()
         var newElement = {
             _id: this.props.studentsJSON.length + 1,
             givenNames: curState.newStudentGivenNames,
@@ -35,48 +75,76 @@ class StudentRoster extends React.Component {
             newStudentGender: 'Masculino'
         });
     }
+    */
 
+    
     handleDeletionOfElement = (row, event) => {
-        this.props.handleDeletionOfElement('studentsJSON', row);
+        //this.props.handleDeletionOfElement('studentsJSON', row);
     }
+    
 
+    /*
     handleUpdateOfField = (idx, name, event) => {
         //event.preventDefault();
         this.props.handleUpdateOfField('studentsJSON', idx, name, event.target.value);
     }
+    */
+
+    renderReadOnlyStudentRow = (studentData, idx) => {
+        return (
+            <tr>
+                <th scope="row">{idx + 1}</th>
+                <td>{studentData.surnames}</td>
+                <td>{studentData.givenNames}</td>
+                <td>{studentData.gender}</td>
+            </tr>
+        );
+    }
+
+    renderWriteStudentRow = (studentData, idx) => {
+        return (
+            <tr id={idx + 1}>
+                <th scope="row">
+                    <Button style={{margin: "0px 20px 0px 0px"}} className="flex-fill" color="danger" size="sm" onClick={ (e) => { this.handleDeletionOfElement(idx, e) } }>Eliminar</Button>
+                    {idx + 1}
+                </th>
+                <td><Input defaultValue={studentData.surnames} /></td>
+                <td><Input defaultValue={studentData.givenNames} /></td>
+                <td>
+                    <Input type="select" defaultValue={studentData.gender} >
+                        <option>Masculino</option>
+                        <option>Femenino</option>
+                    </Input>
+                </td>
+            </tr>
+        );
+    }
+
+    renderHeader = () => {
+        return(
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Apellidos</th>
+                <th>Nombres</th>
+                <th>Género</th>
+            </tr>
+            </thead>
+        );
+    }
 
     render() {
-        const studentsListPreCalc = this.props.studentsJSON.map((studentData, idx) => {
+        console.log(this.props);
+        const UIstudentsRows = this.props.students.map((studentData, idx) => {
             if(!this.props.isEditing){
-                return (
-                    <tr>
-                        <th scope="row">{idx + 1}</th>
-                        <td>{studentData.givenNames}</td>
-                        <td>{studentData.surname}</td>
-                        <td>{studentData.gender}</td>
-                    </tr>
-                );
+                return this.renderReadOnlyStudentRow(studentData, idx);
             }
             else{
-                return (
-                    <tr id={idx + 1}>
-                        <th scope="row">
-                            <Button style={{margin: "0px 20px 0px 0px"}} className="flex-fill" color="danger" size="sm" onClick={ (e) => { this.handleDeletionOfElement(idx, e) } }>Eliminar</Button>
-                            {idx}
-                        </th>
-                        <td><Input value={studentData.givenNames} onChange={(e) => { this.handleUpdateOfField(idx, 'givenNames', e) }} /></td>
-                        <td><Input value={studentData.surname} onChange={(e) => { this.handleUpdateOfField(idx, 'surname', e) }} /></td>
-                        <td>
-                            <Input type="select" value={studentData.gender} onChange={(e) => { this.handleUpdateOfField(idx, 'gender', e) }} >
-                                <option>Masculino</option>
-                                <option>Femenino</option>
-                            </Input>
-                        </td>
-                    </tr>
-                );
+                return this.renderWriteStudentRow(studentData, idx);
             }
         });
 
+        /* THIS IS GOING TO BE A MODAL
         const additionRow = (
             <tr>
                 <th scope="row">
@@ -91,21 +159,13 @@ class StudentRoster extends React.Component {
                     </Input>
                 </td>
             </tr>
-        );
+        ); */
 
         return (
             <Table striped={!this.props.isEditing} bordered={this.props.isEditing}>
-                <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>Género</th>
-                </tr>
-                </thead>
+                {this.renderHeader()}
                 <tbody>
-                    {studentsListPreCalc}
-                    {this.props.isEditing && additionRow}
+                    {UIstudentsRows}
                 </tbody>
             </Table>
         )
@@ -319,6 +379,15 @@ class Elements extends React.Component {
         }
     }
 
+    readInputs = (selector) => {
+        const list = document.querySelectorAll(selector);
+        const inputData = [];
+        for(const node of list){
+            inputData.push(node.value)
+        }
+        return inputData;
+    }
+
     toggleSwitch = () => {
         this.setState((prevState) => {
             return {
@@ -337,7 +406,7 @@ class Elements extends React.Component {
                     <div style={{flex: 1}} />
                     <h1 style={{flex: 3, textAlign: "center"}} >Elementos de Evaluación</h1>
                     <div style={{flex: 1}}>
-                        <Button size="lg" color="primary">Home</Button>
+                        <Button color="primary" size="lg" href="/">Home</Button>
                     </div>
                 </div>
                 <div style={{verticalAlign: true}}>
@@ -346,7 +415,7 @@ class Elements extends React.Component {
                 <div>
                     <h2 style = {{margin: "1em"}}>Lista de Alumnos</h2>
                     <StudentRoster isEditing={this.state.editMode}
-                        studentsJSON={this.state.studentsJSON}
+                        students={this.state.studentsJSON}
                         handleUpdateOfField={this.handleUpdateOfField}
                         handleAdditionOfElement={this.handleAdditionOfElement}
                         handleDeletionOfElement={this.handleDeletionOfElement} />

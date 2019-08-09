@@ -1,37 +1,63 @@
 const express = require('express');
 const router = express.Router();
 
-// Student model
-const Student = require('../../models/Students');
+const Subjects = require('../../models/Subjects');
+const Students = require('../../models/Students');
+const Terms = require('../../models/Terms');
+const Courses = require('../../models/Courses');
+const CourseStudents = require('../../models/CourseStudents');
 
-// @route GET api/students
-// @desc Get all the students
-// @access Public
 router.get('/', (req, res) => {
-    Student.find()
-        .then(students => res.json(students))
+    Students.find()
+    .then(students => res.json(students))
 });
 
-// @route POST api/students
-// @desc Create a student
-// @access Public
+router.put('/:student_id', (req, res) => {
+    Students.findOneAndUpdate(
+        {
+            _id: req.params.student_id
+        },
+        req.body.update
+    )
+    .then(res.status(200).send());
+});
+
 router.post('/', (req, res) => {
-    const newStudent = new Student({
-        givenNames: req.body.givenNames,
-        surname: req.body.surname,
-        gender: req.body.gender
+    const student = new Students(req.body.student);
+    student.save().then(rep => {
+        Courses.find({}, {_id: 1, hasExam: 1, "workload.finalExam": 1})
+        .then(courses => {
+            courses.map(course => {
+                const courseStudent = new CourseStudents({
+                    course_id: course._id,
+                    student_id: rep._id,
+                    workUnits: {
+                        finalExam: course.hasExam ? Array(course.workload.finalExam).fill(null) : null,
+                        homework: null,
+                        classwork: null,
+                        attendance: null,
+                        behavior: null,
+                        extra: null
+                    },
+                    grade: null
+                });
+                courseStudent.save()
+                .then(res.status(200).send());
+            });
+        })
     });
-
-    newStudent.save().then(student => res.json(student));
 });
 
-// @route DELETE api/students/:id
-// @desc Delete a student
-// @access Public
-router.delete('/:id', (req, res) => {
-    Student.findById(req.params.id)
-        .then(student => student.remove().then(() => res.json({success: true})))
-        .catch(err => res.status(404).json({success: false}))
+router.delete('/:student_id', (req, res) => {
+    Promise.all([
+        Students.findByIdAndDelete(req.params.student_id),
+        CourseStudents.deleteMany({
+            student_id: req.params.student_id
+        })
+    ])
+    .then(ans => {
+        res.status(200).json(ans);
+    });
 });
 
 module.exports = router;

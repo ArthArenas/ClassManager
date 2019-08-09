@@ -1,3 +1,3 @@
 module.exports = {
-    mongoURI: 'mongodb+srv://artarenas:<password>@cmcluster-s6bsi.mongodb.net/ClassManager?retryWrites=true'
+    mongoURI: 'mongodb+srv://artarenas:barcelona10@cmcluster-s6bsi.mongodb.net/CMCluster?retryWrites=true'
 }

@@ -12,7 +12,7 @@ const CardDiv = (props) => {
                 <p className="lead">Elementos de Evaluación</p>
                 <hr className="my-2" />
                 <p>En esta sección podrá ver y editar la lista de alumnos, información de los alumnos, materias y términos de evaluación.</p>
-              <Button>Entrar</Button>
+              <Button href="/Elements" >Entrar</Button>
             </CardBody>
           </Card>
           <Card>
@@ -21,7 +21,7 @@ const CardDiv = (props) => {
                 <p className="lead">Evaluación de Término por Materia</p>
                 <hr className="my-2" />
                 <p>En esta sección podrá ver cada rubro que compone la calificación de un término de ciclo escolar. También podrá ver y editar las calificaciones de los alumnos en cada uno de los rubros. La evaluación es por término y materia, usted podrá navegar entre los distintos términos y materias disponibles en el curso.</p>
-              <Button>Entrar</Button>
+              <Button href="/Grading" >Entrar</Button>
             </CardBody>
           </Card>
           <Card>

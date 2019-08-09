@@ -2,6 +2,8 @@
     "data": {
         "_id": 1,
         "termsCnt": 3,
-        "partialsCnt": 2
+        "partialsCnt": 2,
+        "lastTermGraded": 2,
+        "lastSubjectGraded": 4
     }
 }

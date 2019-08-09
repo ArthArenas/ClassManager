@@ -3,49 +3,49 @@
         {
             "_id": 1,
             "givenNames": "Sherry",
-            "surname": "Harris Holmes",
+            "surnames": "Harris Holmes",
             "gender": "Femenino"
         },
         {
             "_id": 2,
             "givenNames": "Richard",
-            "surname": "Badgett Knapp",
+            "surnames": "Badgett Knapp",
             "gender": "Masculino"
         },
         {
             "_id": 3,
             "givenNames": "Daniel",
-            "surname": "Perron Potts",
+            "surnames": "Perron Potts",
             "gender": "Masculino"
         },
         {
             "_id": 4,
             "givenNames": "April",
-            "surname": "McDuffy Burchett",
+            "surnames": "McDuffy Burchett",
             "gender": "Femenino"
         },
         {
             "_id": 5,
             "givenNames": "Frank",
-            "surname": "Sullivan Casteel",
+            "surnames": "Sullivan Casteel",
             "gender": "Masculino"
         },
         {
             "_id": 6,
             "givenNames": "Philip",
-            "surname": "Allen Barnett",
+            "surnames": "Allen Barnett",
             "gender": "Masculino"
         },
         {
             "_id": 7,
             "givenNames": "Krista",
-            "surname": "Butler Lloyd",
+            "surnames": "Butler Lloyd",
             "gender": "Femenino"
         },
         {
             "_id": 8,
             "givenNames": "Linda",
-            "surname": "Gonzalez Paredes",
+            "surnames": "Gonzalez Paredes",
             "gender": "Femenino"
         }
     ]

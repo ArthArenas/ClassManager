@@ -3,7 +3,7 @@ import { Button, Table, Input } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import uuid from 'uuid';
 
-import { createUncontrolledCell } from '../../model/cm_util.js';
+import { createUncontrolledCell } from '../../local_framework/cm_util.js';
 
 class ExamGradingTable extends React.Component {
 
